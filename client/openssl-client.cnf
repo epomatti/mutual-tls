@@ -1,0 +1,23 @@
+[ req ]
+prompt                 = no
+days                   = 365
+distinguished_name     = req_distinguished_name
+req_extensions         = v3_req
+
+[ req_distinguished_name ]
+countryName            = BR
+stateOrProvinceName    = SC
+localityName           = Blumenau
+organizationName       = Pomatti
+organizationalUnitName = Pomatti
+commonName             = client.pomatti.local
+emailAddress           = evandro@pomatti.io
+
+[ v3_req ]
+basicConstraints       = CA:false
+extendedKeyUsage       = clientAuth
+subjectAltName         = @sans
+
+[ sans ]
+DNS.0 = localhost
+DNS.1 = client.pomatti.local

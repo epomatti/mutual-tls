@@ -1,0 +1,15 @@
+spring:
+  ssl:
+    bundle:
+      jks:
+        server:
+          key:
+            alias: "server"
+          keystore:
+            location: "classpath:server.p12"
+            password: "secret"
+            type: "PKCS12"
+      # pem:
+      #   client:
+      #     truststore:
+      #       certificate: "classpath:client.crt"
