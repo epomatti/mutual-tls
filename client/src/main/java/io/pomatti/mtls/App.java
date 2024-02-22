@@ -11,6 +11,7 @@ public class App {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create("https://server.pomatti.local:8443/"))
+        // .uri(URI.create("https://httpbin.org/get"))
         .build();
 
     HttpResponse<String> response = client.send(request, BodyHandlers.ofString());

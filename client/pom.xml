@@ -18,13 +18,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
+    <!-- <javax.net.ssl.trustStore>keystore.jks</javax.net.ssl.trustStore>
+    <javax.net.ssl.trustStorePassword>secret</javax.net.ssl.trustStorePassword> -->
   </properties>
 
-  <dependencies>
-  </dependencies>
-
   <build>
-
     <pluginManagement>
       <plugins>
         <plugin>
@@ -70,19 +68,40 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>keystore.jks</include>
+        </includes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
-          <mainClass>io.pomatti.mtls.App</mainClass>
+          <executable>java</executable>
           <arguments>
-            <argument>argument1</argument>
+            <argument>-classpath</argument>
+            <classpath />
+            <!-- <argument>-Djavax.net.ssl.trustStore=keystore.jks</argument> -->
+            <argument>-Djavax.net.ssl.trustStorePassword=secret</argument>
+            <argument>-Djavax.net.debug=ssl,handshake</argument>
+            <argument>io.pomatti.mtls.App</argument>
           </arguments>
         </configuration>
       </plugin>
     </plugins>
-
   </build>
 </project>
