@@ -18,12 +18,6 @@ mvn versions:display-plugin-updates
 
 Generate a keystore, this case with a [P12 format][1]:
 
-```
-cat mykey.pem.txt mycertificate.pem.txt>mykeycertificate.pem.txt
-
-openssl pkcs12 -export -in mykeycertificate.pem.txt -out mykeystore.pkcs12 -name myAlias -noiter -nomaciter
-```
-
 
 ### PKI
 
@@ -42,6 +36,24 @@ openssl req \
        -new \
        -x509 -days 365 -out server-certificate.crt
 ```
+
+Create the key store
+
+> The `noiter` and `nomaciter` options must be specified to allow the generated KeyStore to be recognized properly by JSSE.
+
+```sh
+openssl pkcs12 -inkey server-key.pem -in server-certificate.crt -export -out server-keystore.p12 \
+       -noiter -nomaciter
+```
+
+Copy to the resourc
+
+For this project local development purposes use the password `demo`.
+
+```sh
+keytool -list -storetype pkcs12 -keystore server-keystore.p12 -storepass demo
+```
+
 
 [1]: https://docs.oracle.com/cd/E19509-01/820-3503/ggfhb/index.html
 [2]: https://www.phcomp.co.uk/Tutorials/Web-Technologies/Understanding-and-generating-OpenSSL.cnf-files.html

@@ -1,9 +1,17 @@
-*.key
+# OpenSSL file extensions
 *.pem
+*.crt
+*.key
+*.csr
 *.p12
 *.pfx
-*.cer
-*.crt
 *.der
-*.csr
+*.cer
+*.p7b
+*.p7c
+*.p7m
+*.p7r
+*.p7s
 *.jks
+*.keystore
+*.ca-bundle

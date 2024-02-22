@@ -4,12 +4,16 @@ spring:
       jks:
         server:
           key:
-            alias: "server"
+            alias: "1"
           keystore:
-            location: "classpath:server.p12"
-            password: "secret"
+            location: "classpath:server-keystore.p12"
+            password: "demo"
             type: "PKCS12"
       # pem:
       #   client:
       #     truststore:
       #       certificate: "classpath:client.crt"
+server:
+  ssl:
+    bundle: "server"
+    # client-auth: NEED
