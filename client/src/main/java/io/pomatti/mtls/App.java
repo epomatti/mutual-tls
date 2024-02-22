@@ -10,7 +10,7 @@ public class App {
   public static void main(String[] args) throws Exception {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("http://openjdk.org/"))
+        .uri(URI.create("https://server.pomatti.local:8443/"))
         .build();
 
     HttpResponse<String> response = client.send(request, BodyHandlers.ofString());

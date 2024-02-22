@@ -54,6 +54,11 @@ For this project local development purposes use the password `demo`.
 keytool -list -storetype pkcs12 -keystore server-keystore.p12 -storepass demo
 ```
 
+Add to the `/etc/hosts` file:
+
+```
+127.0.0.1       server.pomatti.local
+```
 
 [1]: https://docs.oracle.com/cd/E19509-01/820-3503/ggfhb/index.html
 [2]: https://www.phcomp.co.uk/Tutorials/Web-Technologies/Understanding-and-generating-OpenSSL.cnf-files.html
