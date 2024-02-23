@@ -6,6 +6,7 @@
     "words": [
         "classpath",
         "mtls",
+        "openssl",
         "PKCS",
         "truststore"
     ],

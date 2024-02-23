@@ -47,6 +47,10 @@ Useful note from the [exec-maven-plugin][3] documentation:
 ### Server
 
 ```sh
+bash init.sh
+```
+
+```sh
 openssl req -new \
     -config root-ca.conf \
     -out csr/bank-root-ca.csr \
@@ -59,6 +63,29 @@ openssl ca -selfsign \
     -in csr/bank-root-ca.csr \
     -out certs/bank-root-ca.crt
 ```
+
+```sh
+# Private key
+openssl genrsa -out ./private/bank-server-key.pem 4096
+
+# CSR
+openssl req -config ./server.conf -key ./private/bank-server-key.pem -subj '/CN=api.bank.local' -new -sha256 -out ./csr/bank-server-csr.pem
+
+# Sign
+openssl ca -batch -config ./root-ca.conf -passin pass:1234 -extfile server.conf -extensions v3_req -days 30 -notext -md sha256 -in ./csr/bank-server-csr.pem -out ./certs/bank-server-cert.pem
+```
+
+Testing:
+
+```sh
+openssl req -text -noout -verify -in ./csr/bank-server-csr.pem | grep 'DNS'
+openssl req -text -noout -verify -in ./csr/bank-server-csr.pem
+openssl x509 -noout -text -in ./certs/bank-server-cert.pem
+```
+
+
+
+
 
 
 
@@ -149,3 +176,7 @@ openssl verify -CAfile <ca_cert.pem> <target_cert.pem>
 
 https://stackoverflow.com/questions/5871279/ssl-and-cert-keystore
 https://www.feistyduck.com/library/openssl-cookbook/online/openssl-command-line/private-ca-creating-root.html
+https://www.feistyduck.com/library/openssl-cookbook/online/openssl-command-line/private-ca-creating-root.html
+https://github.com/epomatti/az-iot-dps
+https://www.ibm.com/support/pages/how-create-csr-multiple-subject-alternative-name-san-entries-pase-openssl-3rd-party-or-internet-ca
+https://www.ibm.com/support/pages/how-create-csr-multiple-subject-alternative-name-san-entries-pase-openssl-3rd-party-or-internet-ca
