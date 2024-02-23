@@ -30,6 +30,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -47,6 +51,8 @@
 				<directory>.</directory>
 				<includes>
 					<include>bank-server-keystore.p12</include>
+					<include>truststore.jks</include>
+					<!-- <include>enterprise-full.crt</include> -->
 				</includes>
 			</resource>
 		</resources>

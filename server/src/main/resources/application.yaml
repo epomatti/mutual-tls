@@ -9,12 +9,11 @@ spring:
             location: "classpath:bank-server-keystore.p12"
             password: "1234"
             type: "PKCS12"
-      # pem:
-      #   client:
-      #     truststore:
-      #       certificate: "classpath:client.crt"
+          truststore:
+            location: "classpath:truststore.jks"
+            password: "123456"
 server:
   ssl:
     bundle: "server"
-    # client-auth: NEED
+    client-auth: NEED
   port: 8443

@@ -74,10 +74,70 @@ cp certs/bank-root.crt ../../client/
 
 ## 2 - Create the Client PKI
 
+Change to the Enterprise PKI directory:
+
+```sh
+cd pki/enterprise
+```
+
+Initialize the directory structure:
+
+```sh
+bash init.sh
+```
+
+Create the Root CA:
+
+> Use password `1234`
+
+```sh
+openssl req -new \
+    -config root.conf \
+    -out csr/enterprise-root.csr \
+    -keyout private/enterprise-root.key
+```
+
+Self-sign the Root CA certificate:
+
+> Use the previous password, and accept the prompts
+
+```sh
+openssl ca -selfsign \
+    -config root.conf \
+    -in csr/enterprise-root.csr \
+    -out certs/enterprise-root.crt
+```
+
+Create and sign the client certificate:
+
+```sh
+# Private key
+openssl genrsa -out ./private/enterprise-client.key 4096
+
+# CSR
+openssl req -config ./client.conf -key ./private/enterprise-client.key -subj '/CN=client.enterprise.local' -new -sha256 -out ./csr/enterprise-client.csr
+
+# Sign
+openssl ca -batch -config ./root.conf -passin pass:1234 -extfile client.conf -extensions v3_req -days 30 -notext -md sha256 -in ./csr/enterprise-client.csr -out ./certs/enterprise-client.crt
+```
+
+Copy the client certificate to the server:
+
+```sh
+cp certs/enterprise-client.crt ../../server/
+```
+
+Copy the the client key and certificate to the client:
+
+```sh
+cp certs/enterprise-client.crt ../../client/
+cp private/enterprise-client.key ../../client/
+```
+
 
 ## 4 - Build the Client truststore
 
-> For development purposes use a simple password such as `secret`.
+
 
 ```sh
 keytool -importcert -trustcacerts -file bank-root.crt -storepass secret -keystore keystore.jks -alias "root.bank.local"
@@ -86,13 +146,33 @@ keytool -importcert -trustcacerts -file bank-root.crt -storepass secret -keystor
 
 ## Troubleshooting
 
-Testing:
+Verifying the contents of requests and certificates:
 
 ```sh
 openssl req -text -noout -verify -in ./csr/bank-server.csr | grep 'DNS'
 openssl req -text -noout -verify -in ./csr/bank-server.csr
-openssl x509 -noout -text -in ./certs/bank-server.crt
+openssl x509 -text -noout -in ./certs/bank-server.crt
 ```
+
+Verify TLS trust with the root CA:
+
+```sh
+# ❌ This should fail
+openssl s_client -showcerts -connect api.bank.local:8443
+
+# ✅ This should work
+openssl s_client -showcerts -CAfile certs/bank-root.crt -connect api.bank.local:8443
+```
+
+Verify with
+
+```sh
+# openssl s_client -cert ./client-cert.pem -key ./client-key.key -CApath /etc/ssl/certs/ -connect foo.example.com:443
+openssl s_client -cert ./enterprise-client.crt -key ./enterprise-client.key -CAfile bank-root.crt -connect api.bank.local:8443
+
+curl --cert enterprise-client.crt --key enterprise-client.key --cacert bank-root.crt https://api.bank.local:8443
+```
+
 
 
 ############
@@ -291,6 +371,7 @@ openssl verify -CAfile <ca_cert.pem> <target_cert.pem>
 [3]: https://www.mojohaus.org/exec-maven-plugin/usage.html
 
 
+https://www.ibm.com/docs/en/hpvs/1.2.x?topic=reference-openssl-configuration-examples
 https://stackoverflow.com/questions/5871279/ssl-and-cert-keystore
 https://www.feistyduck.com/library/openssl-cookbook/online/openssl-command-line/private-ca-creating-root.html
 https://www.feistyduck.com/library/openssl-cookbook/online/openssl-command-line/private-ca-creating-root.html
@@ -300,3 +381,8 @@ https://www.ibm.com/support/pages/how-create-csr-multiple-subject-alternative-na
 https://stackoverflow.com/questions/11548336/openssl-verify-return-code-20-unable-to-get-local-issuer-certificate
 https://stackoverflow.com/questions/45522363/difference-between-java-keytool-commands-when-importing-certificates-or-chain
 https://stackoverflow.com/questions/45522363/difference-between-java-keytool-commands-when-importing-certificates-or-chain
+
+https://www.baeldung.com/x-509-authentication-in-spring-security
+https://www.baeldung.com/x-509-authentication-in-spring-security
+https://medium.com/geekculture/authentication-using-certificates-7e2cfaacd18b
+https://medium.com/@salarai.de/how-to-enable-mutual-tls-in-a-sprint-boot-application-77144047940f
