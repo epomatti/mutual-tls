@@ -50,9 +50,8 @@
 			<resource>
 				<directory>.</directory>
 				<includes>
-					<include>bank-server-keystore.p12</include>
+					<include>keystore.p12</include>
 					<include>truststore.jks</include>
-					<!-- <include>enterprise-full.crt</include> -->
 				</includes>
 			</resource>
 		</resources>

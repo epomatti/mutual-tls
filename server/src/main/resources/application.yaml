@@ -6,7 +6,7 @@ spring:
           key:
             alias: "1"
           keystore:
-            location: "classpath:bank-server-keystore.p12"
+            location: "classpath:keystore.p12"
             password: "1234"
             type: "PKCS12"
           truststore:

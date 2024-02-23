@@ -1,5 +1,44 @@
 # Mutual TLS
 
+## Execute
+
+Once the PKI setup is complete, these are the steps to run the modules.
+
+The implementation is represented by the two entities Enterprise (client) and the Bank (server).
+
+Add the DNS configuration to the `/etc/hosts/` files.
+
+> ℹ️ If using WSL, edit the Windows hosts file as well as it replaces the WSL file on reboot
+
+```
+localhost    api.bank.local
+::1          api.bank.local
+```
+
+Initiate the server:
+
+```sh
+./mvnw spring-boot:run
+```
+
+Initiate the 
+
+```sh
+mvn package
+mvn exec:exec
+```
+
+### Updates
+
+To check for dependencies and plugins updates:
+
+```sh
+mvn versions:display-dependency-updates
+mvn versions:display-plugin-updates
+```
+
+The following sections will demonstrate how to set up the infrastructure prior to running the applications.
+
 ## 1 - Create the Server PKI
 
 Change to the Bank PKI directory:
@@ -71,7 +110,6 @@ Copy the Root CA to the client directory:
 cp certs/bank-root.crt ../../client/
 ```
 
-
 ## 2 - Create the Client PKI
 
 Change to the Enterprise PKI directory:
@@ -121,11 +159,9 @@ openssl req -config ./client.conf -key ./private/enterprise-client.key -subj '/C
 openssl ca -batch -config ./root.conf -passin pass:1234 -extfile client.conf -extensions v3_req -days 30 -notext -md sha256 -in ./csr/enterprise-client.csr -out ./certs/enterprise-client.crt
 ```
 
-Copy the client certificate to the server:
+Copy the root certificate to the server:
 
-```sh
-cp certs/enterprise-client.crt ../../server/
-```
+
 
 Copy the the client key and certificate to the client:
 
@@ -134,9 +170,22 @@ cp certs/enterprise-client.crt ../../client/
 cp private/enterprise-client.key ../../client/
 ```
 
+Create and copy the truststore to the server directory:
+
+```sh
+keytool -import -trustcacerts -file certs/enterprise-root.crt -alias EnterpriseRootCA -keystore bundles/truststore.jks -storepass 123456
+
+cp  bundles/truststore.jks ../../server/
+```
+
+
 ## 3  Build the Server Trust Store
 
+Enter the server directory:
 
+```sh
+cd server
+```
 
 
 ## 4 - Build the Client truststore
@@ -184,7 +233,7 @@ Create an environment variable:
 - Name: `SSLKEYLOGFILE`
 - Value: `C:\Users\<USER>\SSLKeys\sslkeylog.log`
 
-Start a Wireshark sesssion. In Chrome, navigate the desired site.
+Start a Wireshark session. In Chrome, navigate the desired site.
 
 In Wireshark > Preferences > Protocols > TLS, add set the (Pre)-Master-Secret log filename.
 
@@ -202,33 +251,6 @@ frame contains "api.bank.local"
 
 ############
 
-In this a
-
-The implementation is represented by the two entities CRM (client) and the Bank (server).
-
-
-```
-mvn package
-
-mvn exec:exec "-Djavax.net.ssl.trustStore=$PWD/keystore.jks"
-```
-
-```
-mvn versions:display-dependency-updates
-mvn versions:display-plugin-updates
-```
-
-```
-./mvnw spring-boot:run
-```
-
-
-> ℹ️ If using WSL, edit the Windows hosts file
-
-```
-localhost       api.bank.local
-::1             api.bank.local
-```
 
 
 Generate a keystore, this case with a [P12 format][1]:

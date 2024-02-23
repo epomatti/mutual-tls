@@ -5,11 +5,13 @@
     "dictionaries": [],
     "words": [
         "classpath",
+        "keytool",
         "mtls",
         "openssl",
         "PKCS",
         "selfsign",
-        "truststore"
+        "truststore",
+        "Wireshark"
     ],
     "ignoreWords": [],
     "import": []

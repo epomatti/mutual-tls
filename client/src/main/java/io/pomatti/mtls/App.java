@@ -12,7 +12,6 @@ public class App {
     HttpClient client = Utils.getHttpClient(false);
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create("https://api.bank.local:8443/"))
-        // .uri(URI.create("https://httpbin.org/get"))
         .build();
 
     HttpResponse<String> response = client.send(request,
