@@ -1,0 +1,5 @@
+certs/
+private/
+csr/
+db/
+newcerts/

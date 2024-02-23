@@ -1,5 +1,8 @@
-# mutual-tls
+# Mutual TLS
 
+In this a
+
+The implementation is represented by the two entities CRM (client) and the Bank (server).
 
 
 ```
@@ -38,6 +41,27 @@ Useful note from the [exec-maven-plugin][3] documentation:
 
 
 ## Setup
+
+## Root
+
+### Server
+
+```sh
+openssl req -new \
+    -config root-ca.conf \
+    -out csr/bank-root-ca.csr \
+    -keyout private/bank-root-ca.key
+```
+
+```sh
+openssl ca -selfsign \
+    -config root-ca.conf \
+    -in csr/bank-root-ca.csr \
+    -out certs/bank-root-ca.crt
+```
+
+
+
 
 https://badssl.com/
 
@@ -124,3 +148,4 @@ openssl verify -CAfile <ca_cert.pem> <target_cert.pem>
 
 
 https://stackoverflow.com/questions/5871279/ssl-and-cert-keystore
+https://www.feistyduck.com/library/openssl-cookbook/online/openssl-command-line/private-ca-creating-root.html
