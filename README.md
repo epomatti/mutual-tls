@@ -134,6 +134,10 @@ cp certs/enterprise-client.crt ../../client/
 cp private/enterprise-client.key ../../client/
 ```
 
+## 3  Build the Server Trust Store
+
+
+
 
 ## 4 - Build the Client truststore
 
@@ -172,6 +176,27 @@ openssl s_client -cert ./enterprise-client.crt -key ./enterprise-client.key -CAf
 
 curl --cert enterprise-client.crt --key enterprise-client.key --cacert bank-root.crt https://api.bank.local:8443
 ```
+
+### Wireshark TLS
+
+Create an environment variable:
+
+- Name: `SSLKEYLOGFILE`
+- Value: `C:\Users\<USER>\SSLKeys\sslkeylog.log`
+
+Start a Wireshark sesssion. In Chrome, navigate the desired site.
+
+In Wireshark > Preferences > Protocols > TLS, add set the (Pre)-Master-Secret log filename.
+
+Filter the traffic:
+
+```
+frame contains "api.bank.local"
+```
+
+
+
+
 
 
 
