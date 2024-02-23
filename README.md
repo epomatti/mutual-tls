@@ -2,10 +2,89 @@
 
 ## 1 - Create the Server PKI
 
+Change to the Bank PKI directory:
+
+```sh
+cd pki/bank
+```
+
+Initialize the directory structure:
+
+```sh
+bash init.sh
+```
+
+Create the Root CA:
+
+> Use password `1234`
+
+```sh
+openssl req -new \
+    -config root.conf \
+    -out csr/bank-root.csr \
+    -keyout private/bank-root.key
+```
+
+Self-sign the Root CA certificate:
+
+> Use the previous password, and accept the prompts
+
+```sh
+openssl ca -selfsign \
+    -config root.conf \
+    -in csr/bank-root.csr \
+    -out certs/bank-root.crt
+```
+
+Create and sign the server certificate:
+
+```sh
+# Private key
+openssl genrsa -out ./private/bank-server.key 4096
+
+# CSR
+openssl req -config ./server.conf -key ./private/bank-server.key -subj '/CN=api.bank.local' -new -sha256 -out ./csr/bank-server.csr
+
+# Sign
+openssl ca -batch -config ./root.conf -passin pass:1234 -extfile server.conf -extensions v3_req -days 30 -notext -md sha256 -in ./csr/bank-server.csr -out ./certs/bank-server.crt
+```
+
+Create the bundle to will be used by the Spring Boot server application:
+
+> The `noiter` and `nomaciter` options must be specified to allow the generated KeyStore to be recognized properly by JSSE.
+> Use password `1234`
+
+```sh
+openssl pkcs12 -inkey ./private/bank-server.key -in ./certs/bank-root.crt -in ./certs/bank-server.crt -export -out ./bundles/bank-server-keystore.p12 \
+       -noiter -nomaciter
+```
+
+Copy the #PKCS12 bundle to server application directory:
+
+```sh
+cp bundles/bank-server-keystore.p12 ../../server/
+```
+
+Copy the Root CA to the client directory:
+
+```sh
+cp certs/bank-root.crt ../../client/
+```
 
 
 ## 2 - Create the Client PKI
 
+
+
+## Troubleshooting
+
+Testing:
+
+```sh
+openssl req -text -noout -verify -in ./csr/bank-server.csr | grep 'DNS'
+openssl req -text -noout -verify -in ./csr/bank-server.csr
+openssl x509 -noout -text -in ./certs/bank-server.crt
+```
 
 
 ############

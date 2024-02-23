@@ -1,3 +1,6 @@
+# Project
+# pki/
+
 # OpenSSL file extensions
 *.pem
 *.crt
