@@ -75,6 +75,14 @@ cp certs/bank-root.crt ../../client/
 ## 2 - Create the Client PKI
 
 
+## 4 - Build the Client truststore
+
+> For development purposes use a simple password such as `secret`.
+
+```sh
+keytool -importcert -trustcacerts -file bank-root.crt -storepass secret -keystore keystore.jks -alias "root.bank.local"
+```
+
 
 ## Troubleshooting
 
