@@ -1,5 +1,15 @@
 # Mutual TLS
 
+## 1 - Create the Server PKI
+
+
+
+## 2 - Create the Client PKI
+
+
+
+############
+
 In this a
 
 The implementation is represented by the two entities CRM (client) and the Bank (server).
@@ -21,9 +31,11 @@ mvn versions:display-plugin-updates
 ```
 
 
+> ℹ️ If using WSL, edit the Windows hosts file
 
 ```
-::1       api.bank.local
+localhost       api.bank.local
+::1             api.bank.local
 ```
 
 

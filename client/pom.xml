@@ -18,8 +18,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
-    <!-- <javax.net.ssl.trustStore>keystore.jks</javax.net.ssl.trustStore>
-    <javax.net.ssl.trustStorePassword>secret</javax.net.ssl.trustStorePassword> -->
+    <truststore.path>-Djavax.net.ssl.trustStore=/home/pomatti/sandbox/mutual-tls/client/keystore.jks</truststore.path>
   </properties>
 
   <build>
@@ -95,7 +94,7 @@
           <arguments>
             <argument>-classpath</argument>
             <classpath />
-            <argument>-Djavax.net.ssl.trustStore=/home/pomatti/sandbox/mutual-tls/client/keystore.jks</argument>
+            <argument>${truststore.path}</argument>
             <argument>-Djavax.net.ssl.trustStorePassword=secret</argument>
             <!-- <argument>-Djavax.net.debug=ssl,handshake</argument> -->
             <argument>io.pomatti.mtls.App</argument>
