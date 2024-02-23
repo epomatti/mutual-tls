@@ -23,7 +23,7 @@ mvn versions:display-plugin-updates
 
 
 ```
-::1       server.pomatti.local
+::1       api.bank.local
 ```
 
 
@@ -83,7 +83,10 @@ openssl req -text -noout -verify -in ./csr/bank-server-csr.pem
 openssl x509 -noout -text -in ./certs/bank-server-cert.pem
 ```
 
-
+```sh
+openssl pkcs12 -inkey ./private/bank-server-key.pem -in ./certs/bank-root-ca.pem -in ./certs/bank-server-cert.pem -export -out ./bundles/bank-server-keystore.p12 \
+       -noiter -nomaciter
+```
 
 
 
@@ -142,14 +145,17 @@ cp server-certificate.crt ../client/
 Add the host mapping to the `/etc/hosts` file:
 
 ```
-127.0.0.1       server.pomatti.local
+127.0.0.1       api.bank.local
 ```
 
 ### Client
 
+```sh
+keytool -importcert -trustcacerts -file bank-root-ca.crt -storepass secret -keystore keystore.jks -alias "root.bank.local"
+keytool -importcert -trustcacerts -file bank-server-cert.pem -storepass secret -keystore keystore.jks -alias "api.bank.local"
 ```
-keytool -importcert -trustcacerts -file server-certificate.crt -keystore keystore.jks -alias "server"
-```
+
+mvn exec:exec "-Djavax.net.ssl.trustStore=$PWD/keystore.jks"
 
 For development purposes use a simple password such as `secret`.
 
@@ -163,9 +169,21 @@ Verification error: self-signed certificate
 
 
 
-openssl s_client -showcerts -connect server.pomatti.local:8443
-openssl s_client -connect server.pomatti.local:8443
-openssl s_client -CApath ./certs/ -connect server.pomatti.local:8443
+openssl s_client -showcerts -connect api.bank.local:8443
+openssl s_client -connect api.bank.local:8443
+openssl s_client -CApath ./certs/ -connect api.bank.local:8443
+
+
+# This is ok
+openssl verify -verbose -CAfile bank-root-ca.crt bank-server-cert.pem
+openssl s_client -showcerts -CAfile bank-root-ca.crt -connect api.bank.local:8443
+
+
+⚠️
+openssl s_client -cert ./client-cert.pem -key ./client-key.key -CApath /etc/ssl/certs/ -connect foo.example.com:443
+
+keytool -keystore ./keystore.jks -storepass secret -list | grep root.bank.local
+
 
 openssl verify -CAfile <ca_cert.pem> <target_cert.pem>
 
@@ -180,3 +198,6 @@ https://www.feistyduck.com/library/openssl-cookbook/online/openssl-command-line/
 https://github.com/epomatti/az-iot-dps
 https://www.ibm.com/support/pages/how-create-csr-multiple-subject-alternative-name-san-entries-pase-openssl-3rd-party-or-internet-ca
 https://www.ibm.com/support/pages/how-create-csr-multiple-subject-alternative-name-san-entries-pase-openssl-3rd-party-or-internet-ca
+https://stackoverflow.com/questions/11548336/openssl-verify-return-code-20-unable-to-get-local-issuer-certificate
+https://stackoverflow.com/questions/45522363/difference-between-java-keytool-commands-when-importing-certificates-or-chain
+https://stackoverflow.com/questions/45522363/difference-between-java-keytool-commands-when-importing-certificates-or-chain

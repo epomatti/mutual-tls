@@ -6,8 +6,8 @@ spring:
           key:
             alias: "1"
           keystore:
-            location: "classpath:server-keystore.p12"
-            password: "demo"
+            location: "classpath:openssl/bundles/bank-server-keystore.p12"
+            password: "1234"
             type: "PKCS12"
       # pem:
       #   client:

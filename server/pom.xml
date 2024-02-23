@@ -46,7 +46,7 @@
 			<resource>
 				<directory>.</directory>
 				<includes>
-					<include>**/*.p12</include>
+					<include>openssl/bundles/bank-server-keystore.p12</include>
 				</includes>
 			</resource>
 		</resources>
