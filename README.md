@@ -21,7 +21,7 @@ Initiate the server:
 ./mvnw spring-boot:run
 ```
 
-Initiate the 
+Initiate the client application:
 
 ```sh
 mvn package
