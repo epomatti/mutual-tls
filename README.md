@@ -212,10 +212,9 @@ openssl s_client -showcerts -connect api.bank.local:8443
 openssl s_client -showcerts -CAfile certs/bank-root.crt -connect api.bank.local:8443
 ```
 
-Verify with
+Verify with client testing:
 
 ```sh
-# openssl s_client -cert ./client-cert.pem -key ./client-key.key -CApath /etc/ssl/certs/ -connect foo.example.com:443
 openssl s_client -cert ./enterprise-client.crt -key ./enterprise-client.key -CAfile bank-root.crt -connect api.bank.local:8443
 
 curl --cert enterprise-client.crt --key enterprise-client.key --cacert bank-root.crt https://api.bank.local:8443
