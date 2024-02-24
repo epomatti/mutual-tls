@@ -162,14 +162,11 @@ openssl ca -batch -config ./root.conf -passin pass:1234 -extfile client.conf -ex
 
 Copy the certificates and client key to the client directory:
 
-
-
 ```sh
 cp certs/enterprise-root.crt ../../client/
 cp certs/enterprise-client.crt ../../client/
 cp private/enterprise-client.key ../../client/
 ```
-
 
 > TODO: Implement client truststore
 
