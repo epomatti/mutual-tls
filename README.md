@@ -2,7 +2,7 @@
 
 ## Execute
 
-Once the PKI setup is complete, these are the steps to run the modules.
+👉 Once the PKI setup is complete, these are the steps to run the modules.
 
 The implementation is represented by the two entities Enterprise (client) and the Bank (server).
 
@@ -257,7 +257,6 @@ https://www.ibm.com/support/pages/how-create-csr-multiple-subject-alternative-na
 https://stackoverflow.com/questions/11548336/openssl-verify-return-code-20-unable-to-get-local-issuer-certificate
 https://stackoverflow.com/questions/45522363/difference-between-java-keytool-commands-when-importing-certificates-or-chain
 https://stackoverflow.com/questions/45522363/difference-between-java-keytool-commands-when-importing-certificates-or-chain
-
 https://www.baeldung.com/x-509-authentication-in-spring-security
 https://www.baeldung.com/x-509-authentication-in-spring-security
 https://medium.com/geekculture/authentication-using-certificates-7e2cfaacd18b
