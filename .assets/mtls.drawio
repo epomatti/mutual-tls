@@ -1,0 +1,54 @@
+<mxfile host="Electron" modified="2024-02-27T01:52:51.919Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="uKuBadj7JwSfSvxJ-eQ4" version="23.1.5" type="device">
+  <diagram name="Page-1" id="laX5sfXpUQDdr6P4aXjE">
+    <mxGraphModel dx="1195" dy="697" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UKiztb5hJanEufP4ifvl-5" value="Client" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;fontStyle=1;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="340" y="320" width="56" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-6" value="Server" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;fontStyle=1;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="797" y="320" width="56" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-7" value="Client Certificate Authority&lt;br&gt;(Root)" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.servers.certificate_authority;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="250" y="220" width="46" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-8" value="Server Certificate Authority&lt;br&gt;(Root)" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.servers.certificate_authority;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="880" y="470" width="46" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-9" value="Client Root X.509" style="points=[[0.015,0.015,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[0.985,0.015,0],[1,0.22,0],[1,0.44,0],[1,0.67,0],[0.985,0.89,0],[0,0.22,0],[0,0.44,0],[0,0.67,0],[0.015,0.89,0],[0.25,0.91,0],[0.5,0.91,0],[0.785,0.955,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.x509_certificate;fillColor=#005073;strokeColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="330" y="172.5" width="50" height="47.5" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-13" value="trust" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=2;fontSize=14;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="UKiztb5hJanEufP4ifvl-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-10" value="Server Root X.509" style="points=[[0.015,0.015,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[0.985,0.015,0],[1,0.22,0],[1,0.44,0],[1,0.67,0],[0.985,0.89,0],[0,0.22,0],[0,0.44,0],[0,0.67,0],[0.015,0.89,0],[0.25,0.91,0],[0.5,0.91,0],[0.785,0.955,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.x509_certificate;fillColor=#005073;strokeColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="760" y="520" width="50" height="47.5" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-12" value="Client&lt;br&gt;Private&lt;br&gt;Key" style="shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#4495D1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam.2d.private_key;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="260" y="344.59999999999997" width="55.6" height="50.8" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-14" value="trust" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=2;fontSize=14;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="UKiztb5hJanEufP4ifvl-7" target="UKiztb5hJanEufP4ifvl-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="470" as="targetPoint" />
+            <mxPoint x="880" y="560" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-15" value="Connectivity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=1;fontSize=14;strokeWidth=2;" edge="1" parent="1" source="UKiztb5hJanEufP4ifvl-5" target="UKiztb5hJanEufP4ifvl-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-17" value="Client" style="points=[[0.015,0.015,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[0.985,0.015,0],[1,0.22,0],[1,0.44,0],[1,0.67,0],[0.985,0.89,0],[0,0.22,0],[0,0.44,0],[0,0.67,0],[0.015,0.89,0],[0.25,0.91,0],[0.5,0.91,0],[0.785,0.955,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.x509_certificate;fillColor=#005073;strokeColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200.00000000000003" y="344.59999999999997" width="50" height="47.5" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-18" value="Server&lt;br&gt;Private&lt;br&gt;Key" style="shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#4495D1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam.2d.private_key;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="944" y="346.24999999999994" width="55.6" height="50.8" as="geometry" />
+        </mxCell>
+        <mxCell id="UKiztb5hJanEufP4ifvl-19" value="Server X.509" style="points=[[0.015,0.015,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[0.985,0.015,0],[1,0.22,0],[1,0.44,0],[1,0.67,0],[0.985,0.89,0],[0,0.22,0],[0,0.44,0],[0,0.67,0],[0.015,0.89,0],[0.25,0.91,0],[0.5,0.91,0],[0.785,0.955,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.x509_certificate;fillColor=#005073;strokeColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="876" y="347.8999999999999" width="50" height="47.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

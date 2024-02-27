@@ -1,10 +1,14 @@
 # Mutual TLS
 
+Fully functional mTLS implementation with Java Spring Boot. The solution is represented by these two entities: Enterprise (client) and the Bank (server).
+
+<img src=".assets/mtls.png" />
+
 ## Execute
 
 👉 Once the PKI setup is complete, these are the steps to run the modules.
 
-The implementation is represented by the two entities Enterprise (client) and the Bank (server).
+
 
 Add the DNS configuration to the `/etc/hosts/` files.
 
