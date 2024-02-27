@@ -6,9 +6,7 @@ Fully functional mTLS implementation with Java Spring Boot. The solution is repr
 
 ## Execute
 
-👉 Once the PKI setup is complete, these are the steps to run the modules.
-
-
+👉 Before running the application all setup steps must be executed
 
 Add the DNS configuration to the `/etc/hosts/` files.
 
